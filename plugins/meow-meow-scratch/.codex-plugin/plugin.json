@@ -1,0 +1,39 @@
+{
+  "name": "meow-meow-scratch",
+  "version": "0.1.0",
+  "description": "Build and manage Meow Meow Scratch™ APIs, Raspberry Pi projects, and IoT integrations with the SDK, CLI, and MCP.",
+  "author": {
+    "name": "Meow Meow Scratch™",
+    "url": "https://github.com/meowmeowscratch"
+  },
+  "homepage": "https://meowmeowscratch.com/docs",
+  "repository": "https://github.com/meowmeowscratch/meow-agent-tools",
+  "keywords": [
+    "api",
+    "education",
+    "iot",
+    "mcp",
+    "raspberry-pi"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Meow Meow Scratch™",
+    "shortDescription": "Build APIs and IoT projects without a backend",
+    "longDescription": "Create and manage Meow Meow Scratch™ apps, endpoints, records, dashboards, and Raspberry Pi integrations. Includes a guided skill plus authenticated MCP tools for working with your account.",
+    "developerName": "Meow Meow Scratch™",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://meowmeowscratch.com/",
+    "privacyPolicyURL": "https://meowmeowscratch.com/privacy",
+    "termsOfServiceURL": "https://meowmeowscratch.com/terms",
+    "defaultPrompt": [
+      "Build a private Raspberry Pi sensor API",
+      "Inspect my apps and troubleshoot an endpoint",
+      "Create a control panel for an IoT project"
+    ]
+  },
+  "mcpServers": "./.mcp.json"
+}

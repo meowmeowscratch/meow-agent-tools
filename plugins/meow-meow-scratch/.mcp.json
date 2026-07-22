@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "meow": {
+      "type": "http",
+      "url": "https://meowmeowscratch.com/mcp/",
+      "bearer_token_env_var": "MEOW_API_KEY"
+    }
+  }
+}

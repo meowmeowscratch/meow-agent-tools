@@ -1,0 +1,28 @@
+{
+  "name": "meow-agent-tools",
+  "description": "Meow Meow Scratch™ skills and MCP tools for learning APIs and building Raspberry Pi or IoT projects.",
+  "owner": {
+    "name": "Meow Meow Scratch™"
+  },
+  "plugins": [
+    {
+      "name": "meow-meow-scratch",
+      "source": "./plugins/meow-meow-scratch",
+      "description": "Build and manage Meow Meow Scratch™ APIs, Raspberry Pi projects, and IoT integrations with a shared skill and authenticated MCP tools.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Meow Meow Scratch™"
+      },
+      "homepage": "https://meowmeowscratch.com/docs",
+      "repository": "https://github.com/meowmeowscratch/meow-agent-tools",
+      "category": "Developer Tools",
+      "tags": [
+        "api",
+        "education",
+        "iot",
+        "mcp",
+        "raspberry-pi"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "meow-agent-tools",
+  "interface": {
+    "displayName": "Meow Agent Tools"
+  },
+  "plugins": [
+    {
+      "name": "meow-meow-scratch",
+      "source": {
+        "source": "local",
+        "path": "./plugins/meow-meow-scratch"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "meow-meow-scratch",
+  "displayName": "Meow Meow Scratch™",
+  "version": "0.1.0",
+  "description": "Build and manage Meow Meow Scratch™ APIs, Raspberry Pi projects, and IoT integrations with the SDK, CLI, and MCP.",
+  "author": {
+    "name": "Meow Meow Scratch™",
+    "url": "https://github.com/meowmeowscratch"
+  },
+  "homepage": "https://meowmeowscratch.com/docs",
+  "repository": "https://github.com/meowmeowscratch/meow-agent-tools",
+  "keywords": [
+    "api",
+    "education",
+    "iot",
+    "mcp",
+    "raspberry-pi"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./claude.mcp.json"
+}

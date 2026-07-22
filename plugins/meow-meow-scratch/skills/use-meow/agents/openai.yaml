@@ -1,0 +1,11 @@
+interface:
+  display_name: "Use Meow Meow Scratch™"
+  short_description: "Build APIs and IoT projects with Meow"
+  default_prompt: "Use $use-meow to build a private sensor API and connect it to a Raspberry Pi."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "meow"
+      description: "Manage Meow Meow Scratch™ apps, APIs, data, and control panels"
+      transport: "streamable_http"
+      url: "https://meowmeowscratch.com/mcp/"
