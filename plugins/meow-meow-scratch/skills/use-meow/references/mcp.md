@@ -128,14 +128,14 @@ The server exposes schema-defined tools in these families:
 
 | Family | Typical operations |
 | --- | --- |
-| Discovery | List and inspect apps, endpoints, fields, records, dashboards, widgets, and field types |
+| Discovery | Verify the credential, inspect enforced limits, and list apps, endpoints, fields, records, dashboards, widgets, and field types |
 | Structure | Create, update, and delete apps, endpoints, and collection fields |
-| Data | Send, inspect, update, delete, aggregate, and export records; read or set static payloads |
+| Data | Send one record or an atomic batch; inspect, update, delete, aggregate, and export records; read a bare static document or its metadata envelope |
 | Integrations | Configure proxy requests, webhooks, response encryption, and request logs |
-| Control panels | Create dashboards and widgets, read current values, and patch device state |
+| Control panels | Create widgets with app and endpoint slugs, read canonical state, and write through a widget UUID |
 | Consumer views | Read public endpoints or records and open shared dashboards |
 
-List and inspect before mutating. Obtain record, field, endpoint, widget, webhook, or key UUIDs from the relevant discovery tool rather than guessing them.
+Start with `connection_status`; call `get_limits` before a large provisioning task. List and inspect before mutating. Obtain record, field, widget, webhook, or key UUIDs from discovery tools rather than guessing them. Endpoint slugs are sufficient for canonical dashboard creation.
 
 ## Safety and limits
 
@@ -150,7 +150,7 @@ List and inspect before mutating. Obtain record, field, endpoint, widget, webhoo
 
 | Symptom | Check |
 | --- | --- |
-| `401` or missing tools | Confirm `MEOW_API_KEY` is exported in the process that launched the client and contains an active platform token |
+| `401` or missing tools | Confirm `MEOW_API_KEY` is exported in the process that launched the client and contains an active platform token; call `connection_status` once tools load |
 | Redirect or negotiation failure | Use the exact `/mcp/` URL with the trailing slash |
 | `403` | Confirm the route is a Meow resource route; use the web app for account, platform-token-management, and billing operations |
 | `429` | Reduce calls and wait for the one-minute window; do not aggressively retry |
@@ -161,7 +161,7 @@ List and inspect before mutating. Obtain record, field, endpoint, widget, webhoo
 
 Official references:
 
-- Meow Meow Scratch™ docs: https://meowmeowscratch.com/docs
+- Meow Meow Scratch® docs: https://meowmeowscratch.com/docs
 - Codex plugins: https://learn.chatgpt.com/docs/build-plugins
 - Claude Code plugins: https://code.claude.com/docs/en/plugins
 - Claude Code MCP: https://code.claude.com/docs/en/mcp

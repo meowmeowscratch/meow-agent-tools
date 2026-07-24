@@ -68,15 +68,16 @@ Useful method families include:
 | Work | Methods |
 | --- | --- |
 | Public consumer data | `get`, `get_record`, `aggregate`, `export_csv`, `public_dashboard` |
-| Records | `send`, `update`, `delete_record`, `records`, `all_records` |
+| Records | `send`, `send_many`, `update`, `delete_record`, `records`, `all_records` |
 | Apps/endpoints | `apps`, `get_app`, `create_app`, `update_app`, `delete_app`, `endpoints`, `get_endpoint`, `create_endpoint`, `update_endpoint`, `delete_endpoint` |
 | Collection schema | `fields`, `create_field`, `update_field`, `delete_field`, `field_types` |
-| Static/proxy behavior | `get_payload`, `set_payload`, `get_proxy`, `set_proxy` |
+| Static/proxy behavior | `get_payload`, `get_payload_state`, `set_payload`, `get_proxy`, `set_proxy` |
 | Operations | `webhooks`, `create_webhook`, `update_webhook`, `delete_webhook`, `get_encryption`, `enable_encryption`, `disable_encryption`, `request_logs` |
-| Control panels | `dashboards`, `create_dashboard`, `dashboard_widgets`, `create_dashboard_widget`, `dashboard_data`, `dashboard_patch` |
+| Control panels | `dashboards`, `create_dashboard`, `dashboard_widgets`, `create_dashboard_widget`, `dashboard_state`, `set_dashboard_widget_value` |
 | App credentials | `app_keys`, `create_app_key`, `delete_app_key` |
+| Discovery | `limits`, `auth_context`, `field_types` |
 
-The client also contains platform-token and billing methods, but current platform policy denies account and billing routes to API credentials. Manage those in the web app rather than building automation around calls that will return `403`.
+Use `limits()` with a platform token to inspect enforced capacity. Subscription, checkout, portal, account, and platform-token management remain browser-session operations; do not automate them with an API credential.
 
 Run the bundled inspector when exact signatures may differ from the installed release:
 
@@ -114,11 +115,14 @@ The CLI reads `MEOW_API_KEY`, `MEOW_USERNAME`, and optional `MEOW_URL`.
 meow apps
 meow endpoints weather-station
 meow send weather-station readings temperature=22.5 humidity=65
+meow send-batch weather-station readings @records.json
 meow records weather-station readings --limit 10
 meow get weather-station readings
 meow csv weather-station readings
 meow dashboards
 meow dashboard-data room-controls
+meow widget-set room-controls WIDGET_UUID 0.7
+meow limits
 ```
 
 Check `meow --help` and each subcommand's `--help` before emitting less common options. Use the official CLI reference for the full command catalog: https://meow-sdk.readthedocs.io/cli/.

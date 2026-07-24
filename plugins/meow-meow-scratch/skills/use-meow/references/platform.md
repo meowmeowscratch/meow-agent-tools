@@ -1,10 +1,10 @@
-# Meow Meow Scratch™ platform
+# Meow Meow Scratch® platform
 
 Use this reference to model a project, choose credentials and visibility, or call the REST API directly.
 
 ## Mental model
 
-Meow Meow Scratch™ provides a hosted backend for learning APIs and connecting Raspberry Pi and IoT projects.
+Meow Meow Scratch® provides a hosted backend for learning APIs and connecting Raspberry Pi and IoT projects.
 
 ```text
 account
@@ -12,10 +12,10 @@ account
 │   ├── collection endpoint → field schema + records
 │   ├── static endpoint     → one JSON payload
 │   └── proxy endpoint      → controlled upstream request
-└── dashboards → widgets bound to endpoint UUIDs and key paths
+└── dashboards → widgets bound to app/endpoint slugs and key paths
 ```
 
-- An **app** is a Meow Meow Scratch™ project containing endpoints.
+- A **Meow Meow Scratch® app** is a project containing endpoints.
 - A **collection** stores typed records. Define fields before sending data.
 - A **static endpoint** stores one JSON document and suits current device state or configuration.
 - A **proxy endpoint** calls an upstream URL and may apply a JMESPath response transform.
@@ -40,6 +40,7 @@ The SDK defaults to `https://meowmeowscratch.com`; `/api` is appended internally
 ```text
 Management: /api/apps/{app}/endpoints/{endpoint}/...
 Consumer:   /api/v1/{username}/{app}/{endpoint}/
+Limits:     /api/limits/
 MCP:        https://meowmeowscratch.com/mcp/
 ```
 
@@ -49,11 +50,14 @@ Collection record operations use:
 
 ```text
 GET, POST     /api/apps/{app}/endpoints/{endpoint}/records/
+POST          /api/apps/{app}/endpoints/{endpoint}/records/batch/
 GET, PATCH,
 DELETE        /api/apps/{app}/endpoints/{endpoint}/records/{record_uuid}/
 ```
 
-Record bodies wrap user data as `{"data": {...}}`. Lists use `limit` and `offset`; the default is 25 and maximum is 100. Consumer collection reads can filter with lookups such as `temperature__gte=20`, aggregate with `aggregate=avg,max&field=temperature`, or request CSV with `format=csv`.
+Record bodies wrap user data as `{"data": {...}}`. Batch writes accept up to 100 wrapped records and are atomic. Lists use `limit` and `offset`; the default is 25 and maximum is 100. Consumer collection reads can filter with lookups such as `temperature__gte=20`, aggregate with `aggregate=avg,max&field=temperature`, or request CSV with `format=csv`.
+
+Management writes reject unknown fields. Read the structured error code, field, hint, and indexed batch details rather than assuming a successful status means unsupported input was stored.
 
 ## Teach with the request cycle
 

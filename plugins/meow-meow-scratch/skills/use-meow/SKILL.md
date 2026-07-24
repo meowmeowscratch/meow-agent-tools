@@ -1,11 +1,11 @@
 ---
 name: use-meow
-description: Build, teach, operate, and troubleshoot Meow Meow Scratch™ projects with the REST API, meow-sdk Python client, meow CLI, and Meow MCP server. Use for creating or managing apps, collection/static/proxy endpoints, schemas, records, dashboards, widgets, webhooks, encryption, Raspberry Pi or IoT integrations, configuring Meow MCP in Codex or Claude Code, and explaining API concepts through hands-on Meow projects.
+description: Build, teach, operate, and troubleshoot Meow Meow Scratch® projects with the REST API, meow-sdk Python client, meow CLI, and Meow MCP server. Use for creating or managing apps, collection/static/proxy endpoints, schemas, records, dashboards, widgets, webhooks, encryption, Raspberry Pi or IoT integrations, configuring Meow MCP in Codex or Claude Code, and explaining API concepts through hands-on Meow projects.
 ---
 
-# Use Meow Meow Scratch™
+# Use Meow Meow Scratch®
 
-Treat Meow Meow Scratch™ as the hosted backend for a learning or IoT project. Keep the work understandable to the learner while applying production-safe defaults.
+Treat Meow Meow Scratch® as the hosted backend for a learning or IoT project. Keep the work understandable to the learner while applying production-safe defaults.
 
 ## Load the right reference
 
@@ -24,7 +24,7 @@ Treat Meow Meow Scratch™ as the hosted backend for a learning or IoT project. 
 ## Follow the workflow
 
 1. Clarify the outcome, consumer, data shape, update frequency, and whether anonymous internet access is required.
-2. Discover existing apps and endpoints before creating anything. Reuse stable slugs when they already represent the requested resource.
+2. Call `connection_status` when diagnosing MCP credentials and `get_limits` before provisioning several resources. Discover existing apps and endpoints before creating anything. Reuse stable slugs when they already represent the requested resource.
 3. Choose the narrowest credential:
    - Use a platform token for MCP and account-wide SDK or CLI work across Meow resources.
    - Use an app API key with only the required Read and Write scopes for one device or integration.
@@ -34,7 +34,7 @@ Treat Meow Meow Scratch™ as the hosted backend for a learning or IoT project. 
    - Use `collection` for typed, time-ordered records such as sensor readings or events.
    - Use `static` for one current JSON document such as device state or configuration.
    - Use `proxy` to expose a controlled view of an upstream API.
-6. Inspect before writing. For collections, define fields before sending records. For dashboard widgets, obtain the endpoint UUID instead of assuming the slug is accepted.
+6. Inspect before writing. For collections, define fields before sending records. Create dashboard widgets with app and endpoint slugs; change a configured value with the widget UUID returned by the API.
 7. Make the smallest necessary change, then read the resource back and verify the consumer-facing behavior.
 8. Explain the API concept demonstrated by the work—method, URL, authentication, request body, status, response, or pagination—at the learner's level.
 
@@ -51,6 +51,7 @@ Treat Meow Meow Scratch™ as the hosted backend for a learning or IoT project. 
 
 - Read `MEOW_API_KEY`, `MEOW_USERNAME`, and optional `MEOW_URL` from the environment.
 - Set request timeouts, catch typed SDK errors, and distinguish authentication, validation, not-found, and rate-limit failures.
+- Prefer atomic batch writes for multiple records. If one item fails validation, fix the indexed error before retrying the unchanged batch.
 - On Raspberry Pi loops, clean up hardware resources, avoid tight retry loops, and keep the app key limited to the target app.
 - Prefer a small working request and readback before adding dashboards, webhooks, encryption, transforms, or automation.
 - Link to the official docs for exhaustive or version-sensitive details instead of reproducing a stale method catalog.
