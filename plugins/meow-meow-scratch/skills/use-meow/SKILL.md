@@ -49,7 +49,7 @@ Treat Meow Meow Scratch® as the hosted backend for a learning or IoT project. K
 
 ## Produce maintainable integrations
 
-- Read `MEOW_API_KEY`, `MEOW_USERNAME`, and optional `MEOW_URL` from the environment.
+- Read platform tokens from `MEOW_PLATFORM_API_KEY` and app-scoped credentials from `MEOW_APP_API_KEY`. Do not read the ambiguous legacy `MEOW_API_KEY` name. Also read `MEOW_USERNAME` and optional `MEOW_URL` where required.
 - Set request timeouts, catch typed SDK errors, and distinguish authentication, validation, not-found, and rate-limit failures.
 - Prefer atomic batch writes for multiple records. If one item fails validation, fix the indexed error before retrying the unchanged batch.
 - On Raspberry Pi loops, clean up hardware resources, avoid tight retry loops, and keep the app key limited to the target app.

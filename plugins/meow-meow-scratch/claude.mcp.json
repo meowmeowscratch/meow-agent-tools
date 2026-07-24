@@ -4,7 +4,7 @@
       "type": "http",
       "url": "https://meowmeowscratch.com/mcp/",
       "headers": {
-        "Authorization": "Bearer ${MEOW_API_KEY}"
+        "Authorization": "Bearer ${MEOW_PLATFORM_API_KEY}"
       }
     }
   }

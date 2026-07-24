@@ -8,7 +8,8 @@ The package supports Python 3.8 and newer and installs both `meow_sdk` and the `
 
 ```bash
 python -m pip install meow-sdk
-export MEOW_API_KEY="YOUR_PLATFORM_TOKEN"
+export MEOW_PLATFORM_API_KEY="YOUR_PLATFORM_TOKEN"
+export MEOW_APP_API_KEY="YOUR_APP_API_KEY"
 export MEOW_USERNAME="YOUR_USERNAME"
 # Optional for local or self-hosted instances:
 export MEOW_URL="https://meowmeowscratch.com"
@@ -25,7 +26,7 @@ from meow_sdk import Meow
 api = Meow(
     base_url=os.getenv("MEOW_URL", "https://meowmeowscratch.com"),
     username=os.getenv("MEOW_USERNAME"),
-    api_key=os.environ["MEOW_API_KEY"],
+    api_key=os.environ["MEOW_PLATFORM_API_KEY"],
     timeout=30,
 )
 ```
@@ -109,7 +110,10 @@ Retry only `429` and transient `5xx` failures, with a bounded exponential delay.
 
 ## CLI examples
 
-The CLI reads `MEOW_API_KEY`, `MEOW_USERNAME`, and optional `MEOW_URL`.
+The CLI reads `MEOW_PLATFORM_API_KEY` for management commands and
+`MEOW_APP_API_KEY` for direct data and static-payload commands. It does not read
+the ambiguous legacy `MEOW_API_KEY` name. It also reads `MEOW_USERNAME` and
+optional `MEOW_URL`.
 
 ```bash
 meow apps

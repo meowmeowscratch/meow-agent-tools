@@ -31,7 +31,11 @@ New apps and endpoints should remain private unless anonymous internet access is
 | App API key | One app plus its selected Read/Write scopes | Raspberry Pi, device, or single-app integration |
 | None | Public consumer reads only | Public examples and intentionally open datasets |
 
-Store credentials in `MEOW_API_KEY`. Full key values are shown once. API credentials authenticate resource calls but are intentionally denied access to identity, account, platform-token-management, and billing routes; perform those operations in the web app.
+Store platform tokens in `MEOW_PLATFORM_API_KEY` and app-scoped keys in
+`MEOW_APP_API_KEY`. Do not use the ambiguous legacy `MEOW_API_KEY` name. Full
+key values are shown once. API credentials authenticate resource calls but are
+intentionally denied access to identity, account, platform-token-management,
+and billing routes; perform those operations in the web app.
 
 ## URL shapes
 

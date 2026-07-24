@@ -12,7 +12,7 @@ Use it to build and manage APIs, teach HTTP concepts, connect Raspberry Pi or Io
 | Plugin manifest | `.codex-plugin/plugin.json` | `.claude-plugin/plugin.json` |
 | Shared agent workflow | `skills/use-meow/SKILL.md` | `skills/use-meow/SKILL.md` |
 | Hosted MCP server | `.mcp.json` | `claude.mcp.json` through the Claude manifest |
-| Secret source | `MEOW_API_KEY` | `MEOW_API_KEY` |
+| Secret source | `MEOW_PLATFORM_API_KEY` | `MEOW_PLATFORM_API_KEY` |
 
 The skill, scripts, and references are shared. Only the marketplace, manifest, and MCP authentication wrapper differ. Claude support refers to **Claude Code**; this repository does not define a Claude.ai or Claude Desktop connector.
 
@@ -21,10 +21,10 @@ The skill, scripts, and references are shared. Only the marketplace, manifest, a
 Create a platform token under **Account → Platform Tokens** in Meow Meow Scratch™, then expose it to the process that launches your agent:
 
 ```bash
-export MEOW_API_KEY="YOUR_PLATFORM_TOKEN"
+export MEOW_PLATFORM_API_KEY="YOUR_PLATFORM_TOKEN"
 ```
 
-Use a platform token for MCP because the tool set discovers and manages resources across your account. Use an app API key instead for a Raspberry Pi, device, or other integration that should be restricted to one app.
+Use a platform token for MCP because the tool set discovers and manages resources across your account. Store an app API key in `MEOW_APP_API_KEY` instead for a Raspberry Pi, device, or other integration that should be restricted to one app. The ambiguous `MEOW_API_KEY` name is not supported.
 
 Never commit either credential. The repository contains environment-variable names only.
 
@@ -133,7 +133,7 @@ Keep both plugin versions aligned when publishing a release. Validate the Claude
 
 ## Security model
 
-- The MCP server receives a Bearer platform token from `MEOW_API_KEY`; neither client configuration contains its value.
+- The MCP server receives a Bearer platform token from `MEOW_PLATFORM_API_KEY`; neither client configuration contains its value.
 - Platform tokens provide account-wide Meow resource access but cannot access identity, account, platform-token-management, or billing routes through API authentication.
 - App API keys are restricted to one app and should receive only the required Read and Write scopes.
 - The hosted MCP service does not add its own human approval gate. Agent clients should require confirmation for destructive and sensitive operations.

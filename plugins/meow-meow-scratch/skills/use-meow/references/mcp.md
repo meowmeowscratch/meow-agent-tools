@@ -38,7 +38,7 @@ Do not collapse these MCP files into one. Their authentication fields are client
 Create a platform token under **Account → Platform Tokens**, then export it in the environment that launches the client:
 
 ```bash
-export MEOW_API_KEY="YOUR_PLATFORM_TOKEN"
+export MEOW_PLATFORM_API_KEY="YOUR_PLATFORM_TOKEN"
 ```
 
 Use a platform token because the MCP tool set performs account-wide discovery and management. App API keys are intentionally limited to one app and are better suited to devices and single-app integrations.
@@ -61,7 +61,7 @@ codex plugin marketplace add "$PWD"
 codex plugin add meow-meow-scratch@meow-agent-tools
 ```
 
-The plugin's `.mcp.json` reads the Bearer token from `MEOW_API_KEY`. Start a new thread after installing or updating the plugin, then use `/mcp` to confirm that the server and tools are available.
+The plugin's `.mcp.json` reads the Bearer token from `MEOW_PLATFORM_API_KEY`. Start a new thread after installing or updating the plugin, then use `/mcp` to confirm that the server and tools are available.
 
 ## Packaged Claude Code installation
 
@@ -79,7 +79,7 @@ claude plugin marketplace add "$PWD"
 claude plugin install meow-meow-scratch@meow-agent-tools
 ```
 
-The Claude manifest points to `claude.mcp.json`, which expands `MEOW_API_KEY` into the Authorization header. Start a new session or run `/reload-plugins`, verify the server with `/mcp`, and invoke the skill with `/meow-meow-scratch:use-meow` when explicit selection is useful.
+The Claude manifest points to `claude.mcp.json`, which expands `MEOW_PLATFORM_API_KEY` into the Authorization header. Start a new session or run `/reload-plugins`, verify the server with `/mcp`, and invoke the skill with `/meow-meow-scratch:use-meow` when explicit selection is useful.
 
 ## Standalone Codex configuration
 
@@ -88,7 +88,7 @@ Use this when installing the whole plugin is unnecessary:
 ```bash
 codex mcp add meow \
   --url https://meowmeowscratch.com/mcp/ \
-  --bearer-token-env-var MEOW_API_KEY
+  --bearer-token-env-var MEOW_PLATFORM_API_KEY
 codex mcp list
 ```
 
@@ -97,7 +97,7 @@ Equivalent `~/.codex/config.toml` or trusted project `.codex/config.toml`:
 ```toml
 [mcp_servers.meow]
 url = "https://meowmeowscratch.com/mcp/"
-bearer_token_env_var = "MEOW_API_KEY"
+bearer_token_env_var = "MEOW_PLATFORM_API_KEY"
 ```
 
 Restart Codex after changing configuration and use `/mcp` to verify the server.
@@ -113,14 +113,14 @@ Place this in the project's `.mcp.json`:
       "type": "http",
       "url": "https://meowmeowscratch.com/mcp/",
       "headers": {
-        "Authorization": "Bearer ${MEOW_API_KEY}"
+        "Authorization": "Bearer ${MEOW_PLATFORM_API_KEY}"
       }
     }
   }
 }
 ```
 
-Launch Claude Code from a shell where `MEOW_API_KEY` is set, approve the project server, and check `/mcp`. Do not place the token directly in the file or URL.
+Launch Claude Code from a shell where `MEOW_PLATFORM_API_KEY` is set, approve the project server, and check `/mcp`. Do not place the token directly in the file or URL.
 
 ## Tool map
 
@@ -150,13 +150,13 @@ Start with `connection_status`; call `get_limits` before a large provisioning ta
 
 | Symptom | Check |
 | --- | --- |
-| `401` or missing tools | Confirm `MEOW_API_KEY` is exported in the process that launched the client and contains an active platform token; call `connection_status` once tools load |
+| `401` or missing tools | Confirm `MEOW_PLATFORM_API_KEY` is exported in the process that launched the client and contains an active platform token; call `connection_status` once tools load |
 | Redirect or negotiation failure | Use the exact `/mcp/` URL with the trailing slash |
 | `403` | Confirm the route is a Meow resource route; use the web app for account, platform-token-management, and billing operations |
 | `429` | Reduce calls and wait for the one-minute window; do not aggressively retry |
 | Codex shows old configuration | Reinstall or refresh the plugin and start a new thread |
 | Claude shows old configuration | Run `/reload-plugins` or start a new Claude Code session |
-| Claude reports a missing variable | Export `MEOW_API_KEY` before launching Claude Code and inspect `claude mcp list` |
+| Claude reports a missing variable | Export `MEOW_PLATFORM_API_KEY` before launching Claude Code and inspect `claude mcp list` |
 | Plugin is installed but MCP is absent | Check client or workspace policy, then inspect `/mcp` and the client's debug output |
 
 Official references:
