@@ -12,21 +12,40 @@ Use it to build and manage APIs, teach HTTP concepts, connect Raspberry Pi or Io
 | Plugin manifest | `.codex-plugin/plugin.json` | `.claude-plugin/plugin.json` |
 | Shared agent workflow | `skills/use-meow/SKILL.md` | `skills/use-meow/SKILL.md` |
 | Hosted MCP server | `.mcp.json` | `claude.mcp.json` through the Claude manifest |
-| Secret source | `MEOW_PLATFORM_API_KEY` | `MEOW_PLATFORM_API_KEY` |
+| Secret variable | `MEOW_PLATFORM_API_KEY` | `MEOW_PLATFORM_API_KEY` |
+| Recommended user config | `~/.codex/.env` | `~/.claude/settings.json` under `env` |
 
 The skill, scripts, and references are shared. Only the marketplace, manifest, and MCP authentication wrapper differ. Claude support refers to **Claude Code**; this repository does not define a Claude.ai or Claude Desktop connector.
 
 ## Before installation
 
-Create a platform token under **Account → Platform Tokens** in Meow Meow Scratch™, then expose it to the process that launches your agent:
+Create a platform token under **Account → Platform Tokens** in Meow Meow Scratch™, then store it in the user-level configuration for your agent client.
 
-```bash
-export MEOW_PLATFORM_API_KEY="YOUR_PLATFORM_TOKEN"
+For Codex, create or edit `~/.codex/.env`:
+
+```dotenv
+MEOW_PLATFORM_API_KEY=YOUR_PLATFORM_TOKEN
 ```
+
+For Claude Code, merge the variable into the `env` object in `~/.claude/settings.json` (preserve any settings already in the file):
+
+```json
+{
+  "env": {
+    "MEOW_PLATFORM_API_KEY": "YOUR_PLATFORM_TOKEN"
+  }
+}
+```
+
+Claude Code does not document `~/.claude/.env` as a user-level startup source. Its supported equivalent is the `env` object in `~/.claude/settings.json`.
+
+Restart Codex or Claude Code after adding or changing the token. Avoid defining the same variable in several places, which makes it harder to tell which value a client inherited.
 
 Use a platform token for MCP because the tool set discovers and manages resources across your account. Store an app API key in `MEOW_APP_API_KEY` instead for a Raspberry Pi, device, or other integration that should be restricted to one app. The ambiguous `MEOW_API_KEY` name is not supported.
 
-Never commit either credential. The repository contains environment-variable names only.
+Both user-level files store the value as plaintext. Keep them outside repositories, restrict them to your user account (for example, `chmod 600` on macOS or Linux), and never commit either credential. The repository contains environment-variable names only.
+
+The Codex and Claude Code files configure those clients; they do not export the variable to unrelated terminal programs. For `meow-sdk`, the Meow CLI, CI, or another standalone MCP client, set `MEOW_PLATFORM_API_KEY` in that process through your shell or secret manager instead.
 
 ## Install in Codex
 
@@ -147,3 +166,4 @@ Keep both plugin versions aligned when publishing a release. Validate the Claude
 - [Meow Meow Scratch™ projects](https://github.com/meowmeowscratch)
 - [Codex plugin documentation](https://learn.chatgpt.com/docs/build-plugins)
 - [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins)
+- [Claude Code environment variables](https://code.claude.com/docs/en/env-vars)
